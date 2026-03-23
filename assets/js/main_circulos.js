@@ -1,19 +1,18 @@
 (() => {
-    const canvas = document.getElementById("canvasB");
+    const canvas = document.getElementById("canvasA");
     const ctx = canvas.getContext("2d");
     canvas.height = 300; canvas.width = 600;
 
-    class CircleB {
-        constructor(x, y, radius, speed, text) {
+    class Circle {
+        constructor(x, y, radius, color, text, speed) {
             this.posX = x; this.posY = y; this.radius = radius;
-            this.speed = speed; this.text = text;
+            this.color = color; this.text = text; this.speed = speed;
             this.dx = (Math.random() < 0.5 ? 1 : -1) * this.speed;
             this.dy = (Math.random() < 0.5 ? 1 : -1) * this.speed;
-            this.isColliding = false;
         }
         draw(context) {
             context.beginPath();
-            context.strokeStyle = this.isColliding ? "red" : "blue";
+            context.strokeStyle = this.color;
             context.textAlign = "center"; context.textBaseline = "middle";
             context.font = "20px Arial"; context.fillStyle = "black";
             context.fillText(this.text, this.posX, this.posY);
@@ -29,28 +28,15 @@
         }
     }
 
-    function getDist(x1, y1, x2, y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
-
     let circles = [];
-    for (let i = 0; i < 10; i++) {
-        let r = Math.random() * 25 + 15;
-        circles.push(new CircleB(Math.random() * (canvas.width - r*2) + r, Math.random() * (canvas.height - r*2) + r, r, 2, (i+1).toString()));
+    for (let i = 0; i < 5; i++) {
+        let r = Math.random() * 30 + 20;
+        circles.push(new Circle(Math.random() * (canvas.width - r*2) + r, Math.random() * (canvas.height - r*2) + r, r, "blue", (i+1).toString(), 2));
     }
 
     function animate() {
         requestAnimationFrame(animate);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        circles.forEach(c => c.isColliding = false);
-        for (let i = 0; i < circles.length; i++) {
-            for (let j = i + 1; j < circles.length; j++) {
-                if (getDist(circles[i].posX, circles[i].posY, circles[j].posX, circles[j].posY) < circles[i].radius + circles[j].radius) {
-                    circles[i].isColliding = true; circles[j].isColliding = true;
-                }
-            }
-        }
         circles.forEach(c => c.update(ctx));
     }
     animate();
