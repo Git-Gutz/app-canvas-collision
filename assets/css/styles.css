@@ -1,0 +1,204 @@
+/* =======================================================
+   TEMA RANDOM PLAY LABS | PHAETHON (Industrial, Retro-Cozy)
+   Paleta de Colores e Iluminación inspirada en ZZZ
+   ======================================================= */
+
+:root {
+    --rp-bg-pizarra: #1A1D20;    /* Pizarra industrial oscura */
+    --rp-brick-red: #A33A36;     /* Ladrillo carmesí carismático */
+    --rp-yellow-warm: #FFD400;   /* Amarillo neón cálido/difuso */
+    --rp-text-main: #E6E1DC;     /* Crema suave */
+    --rp-text-muted: #8C847A;    /* Marrón grisáceo (tierra) */
+    --rp-border: #3A3633;        /* Bordes metálicos oscuros */
+    --rp-canvas-bg: #0D0C0B;     /* Pantalla oscura */
+    --rp-accent-cian: #00FFEA;   /* Cian neón nítido */
+    --rp-accent-red: #FF3366;    /* Rojo neón nítido */
+}
+
+body.rp-theme {
+    font-family: 'Outfit', sans-serif;
+
+    /* Color base por si falla la carga */
+    background-color: var(--rp-bg-pizarra);
+
+    /* ✅ TEXTURA VISIBLE + OVERLAY SUAVE */
+    background-image:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(26,29,32,0.55) 0%,
+            rgba(10,10,10,0.75) 100%
+        ),
+        url('https://www.transparenttextures.com/patterns/brick-wall-dark.png');
+
+    /* Ajustes de fondo */
+    background-size: cover, auto;
+    background-repeat: no-repeat, repeat;
+    background-position: center, top left;
+    background-attachment: fixed;
+
+    color: var(--rp-text-main);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    min-height: 100vh;
+}
+
+/* --- TIPOGRAFÍA Y TEXTOS --- */
+.rp-title {
+    color: var(--rp-text-main);
+    letter-spacing: -1px;
+    text-shadow: 0 0 30px rgba(255, 212, 0, 0.2);
+}
+
+.rp-subtitle {
+    color: var(--rp-text-muted);
+    font-size: 1.15rem;
+}
+
+/* --- BARRA DE NAVEGACIÓN (Pizarra con Grilla) --- */
+.rp-navbar {
+    background-color: #0F1215;
+    border-bottom: 3px solid var(--rp-brick-red);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.rp-brand {
+    color: var(--rp-text-main);
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.rp-logo-icon {
+    color: var(--rp-yellow-warm);
+    font-size: 1.4rem;
+    text-shadow: 
+        0 0 5px var(--rp-yellow-warm),
+        0 0 15px var(--rp-yellow-warm),
+        0 0 25px rgba(255,212,0,0.3);
+}
+
+/* --- BOTONES Y BADGES --- */
+.rp-badge {
+    background-color: rgba(0, 255, 234, 0.05);
+    color: var(--rp-accent-cian);
+    border: 2px solid var(--rp-accent-cian);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.rp-btn-outline {
+    color: var(--rp-yellow-warm);
+    border: 2px solid var(--rp-yellow-warm);
+    font-family: 'Space Mono', monospace;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.rp-btn-outline:hover {
+    background-color: var(--rp-yellow-warm);
+    color: #0A0909;
+    box-shadow: 0 0 20px rgba(255, 212, 0, 0.5);
+}
+
+/* --- TARJETAS (Pizarra Industrial en Pared de Ladrillo) --- */
+.rp-card {
+    background-color: #1F2226; 
+    border: 3px solid var(--rp-border);
+    border-radius: 20px;
+    box-shadow: 
+        10px 10px 30px rgba(0,0,0,0.6),
+        inset -5px -5px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    overflow: hidden;
+    background-image: radial-gradient(circle at 10% 10%, #292d32 0%, #1f2226 100%);
+}
+
+.rp-card:hover {
+    transform: translateY(-10px) rotate(1deg); 
+    border-color: var(--rp-brick-red);
+}
+
+.rp-card-header {
+    background-color: rgba(163, 58, 54, 0.1); 
+    border-bottom: 2px solid var(--rp-border);
+    color: var(--rp-text-main);
+    letter-spacing: 1px;
+}
+
+/* --- EL CANVAS (Monitor CRT Empotrado) --- */
+.canvas-wrapper {
+    background-color: #0A0A09;
+    padding: 15px;
+    border-radius: 15px;
+    border: 3px solid #2A2826;
+    position: relative;
+    display: inline-block;
+    box-shadow: 
+        inset 0 0 25px rgba(0,0,0,1),
+        0 8px 25px rgba(0,0,0,0.7);
+    background-image: radial-gradient(circle at 50% 10%, rgba(255, 212, 0, 0.15) 0%, rgba(10,10,10,1) 100%);
+}
+
+.canvas-wrapper::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 15px; left: 15px; right: 15px; bottom: 15px;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+    background-size: 100% 6px; 
+    z-index: 2;
+    pointer-events: none;
+    border-radius: 6px;
+}
+
+.rp-canvas {
+    background-color: var(--rp-canvas-bg) !important;
+    border-radius: 6px;
+    display: block;
+    width: 260px; 
+    height: 260px;
+    box-shadow: 0 0 15px rgba(0,229,255,0.05);
+}
+
+/* --- TEXTOS TÉCNICOS --- */
+.rp-tech-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--rp-text-main);
+    line-height: 1.6;
+    background-color: #101214; 
+    padding: 1.4rem;
+    border-radius: 10px;
+    border: 2px solid var(--rp-border);
+    border-left: 5px solid var(--rp-brick-red); 
+}
+
+.rp-status {
+    color: var(--rp-yellow-warm);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 10px rgba(255,212,0,0.2);
+}
+
+/* --- FOOTER (Pizarra Industrial) --- */
+.rp-footer {
+    background-color: #0F1215;
+    border-top: 3px solid var(--rp-border);
+    width: 100%;
+}
+
+.rp-tech-text-footer {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--rp-text-muted);
+    letter-spacing: 1px;
+}
+
+.rp-highlight {
+    color: var(--rp-yellow-warm);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255,212,0,0.2);
+}

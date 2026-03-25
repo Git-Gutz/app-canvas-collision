@@ -1,7 +1,8 @@
 (() => {
     const canvas = document.getElementById("canvasA");
     const ctx = canvas.getContext("2d");
-    canvas.height = 300; canvas.width = 600;
+    // Resoluciones internas cuadradas fijas
+    canvas.height = 300; canvas.width = 300; 
 
     class Circle {
         constructor(x, y, radius, color, text, speed) {
@@ -12,10 +13,15 @@
         }
         draw(context) {
             context.beginPath();
-            context.strokeStyle = this.color;
+            // Color de la línea del círculo (Cian)
+            context.strokeStyle = "#00E5FF";
             context.textAlign = "center"; context.textBaseline = "middle";
-            context.font = "20px Arial"; context.fillStyle = "black";
+            context.font = "bold 20px 'Space Mono', monospace"; 
+            
+            // Color del texto (Blanco/Crema)
+            context.fillStyle = "#F2EBE1";
             context.fillText(this.text, this.posX, this.posY);
+            
             context.lineWidth = 2;
             context.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2, false);
             context.stroke(); context.closePath();
@@ -31,7 +37,7 @@
     let circles = [];
     for (let i = 0; i < 5; i++) {
         let r = Math.random() * 30 + 20;
-        circles.push(new Circle(Math.random() * (canvas.width - r*2) + r, Math.random() * (canvas.height - r*2) + r, r, "blue", (i+1).toString(), 2));
+        circles.push(new Circle(Math.random() * (canvas.width - r*2) + r, Math.random() * (canvas.height - r*2) + r, r, "#00E5FF", (i+1).toString(), 2));
     }
 
     function animate() {

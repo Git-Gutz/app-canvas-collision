@@ -3,74 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evaluación API Canvas - Física 2D</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html {
-            height: 100%;
-            font-family: system-ui, -apple-system, sans-serif;
-            display: flex;
-            flex-direction: column;
-            background-color: #222;
-        }
-        .navbar {
-            background-color: #2c3e50; color: #ffffff;
-            padding: 1rem 2rem; text-align: center;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 10;
-        }
-        .main-content {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem;
-            overflow-y: auto;
-        }
-        .canvas-section {
-            background-color: #333;
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            text-align: center;
-        }
-        .canvas-section h3 {
-            color: #ecf0f1;
-            margin-bottom: 1rem;
-        }
-        canvas { background-color: #ff8; border-radius: 4px; }
-        .footer {
-            background-color: #34495e; color: #ecf0f1;
-            padding: 1rem; text-align: center; font-size: 0.9rem;
-        }
-        .footer a { color: #4db8ff; text-decoration: none; font-weight: bold; }
-    </style>
+    <title>Laboratorio de Física 2D | Phaethon System</title>
+    
+    <link rel="shortcut icon" href="./assets/img/bouncingball.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
-<body>
-    <header class="navbar">
-        <h2>Simulador de Partículas y Colisiones 2D</h2>
+<body class="rp-theme d-flex flex-column min-vh-100">
+
+    <nav class="navbar rp-navbar shadow-lg">
+        <div class="container-fluid px-4 py-2">
+            <span class="navbar-brand mb-0 h1 fw-bold rp-brand d-flex align-items-center">
+                <span class="rp-logo-icon me-2">▶</span> RANDOM PLAY LABS
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="badge rp-badge me-3 px-3 py-2">SISTEMA EN LÍNEA</span>
+                <a href="https://github.com/Git-Gutz" target="_blank" class="btn rp-btn-outline btn-sm px-3">Proxy: @Git-Gutz</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container text-center py-5">
+        <h1 class="display-5 fw-bold rp-title">Simulador Cinemático VHS-2D</h1>
+        <p class="mx-auto rp-subtitle mt-3" style="max-width: 700px;">
+            Entorno de pruebas renderizado con la API Canvas. Sistema analógico para la evaluación vectorial de trayectorias, intersecciones y transferencia de momento lineal.
+        </p>
     </header>
 
-    <main class="main-content">
-        <div class="canvas-section">
-            <h3>A. Movimiento y Distancia (Sin interacción)</h3>
-            <canvas id="canvasA"></canvas>
-        </div>
+    <main class="container flex-grow-1 pb-5">
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 rp-card">
+                    <div class="card-header rp-card-header text-center pt-4">
+                        <h5 class="fw-bold mb-0 text-uppercase">Cinta A: Movimiento</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="canvas-wrapper mb-4 mx-auto">
+                            <canvas id="canvasA" class="rp-canvas"></canvas>
+                        </div>
+                        <div class="rp-tech-text mt-auto">
+                            <span class="rp-status">[ESTADO: CINEMÁTICA PURA]</span><br><br>
+                            Las partículas mantienen vectores de velocidad constantes. El algoritmo calcula rebotes simples al intersectar los límites del monitor.
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="canvas-section">
-            <h3>B. Colisión Colectiva (Cambio de color, sin rebote)</h3>
-            <canvas id="canvasB"></canvas>
-        </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 rp-card">
+                    <div class="card-header rp-card-header text-center pt-4">
+                        <h5 class="fw-bold mb-0 text-uppercase">Cinta B: Intersección</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="canvas-wrapper mb-4 mx-auto">
+                            <canvas id="canvasB" class="rp-canvas"></canvas>
+                        </div>
+                        <div class="rp-tech-text mt-auto">
+                            <span class="rp-status">[ESTADO: SUPERPOSICIÓN]</span><br><br>
+                            Cálculo de distancia euclidiana entre centros. El sistema alerta visualmente cuando los radios se cruzan, sin alterar las trayectorias.
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="canvas-section">
-            <h3>C. Cambio de Dirección (Física de rebote)</h3>
-            <canvas id="canvasC"></canvas>
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 rp-card">
+                    <div class="card-header rp-card-header text-center pt-4">
+                        <h5 class="fw-bold mb-0 text-uppercase">Cinta C: Rebote</h5>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <div class="canvas-wrapper mb-4 mx-auto">
+                            <canvas id="canvasC" class="rp-canvas"></canvas>
+                        </div>
+                        <div class="rp-tech-text mt-auto">
+                            <span class="rp-status">[ESTADO: COLISIÓN ELÁSTICA]</span><br><br>
+                            Simulador de transferencia de momento. Calcula normales de colisión en tiempo real para intercambiar energía cinética y vectores.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
-    <footer class="footer">
-        <p>Desarrollado por Leonardo | Ingeniería en Sistemas Computacionales</p>
-        <p>Instituto Tecnológico de Pachuca | GitHub: <a href="https://github.com/Git-Gutz" target="_blank">@Git-Gutz</a></p>
+    <footer class="rp-footer py-4 mt-auto">
+        <div class="container text-center rp-tech-text-footer">
+            SISTEMA DESARROLLADO POR <span class="rp-highlight fw-bold">LEONARDO</span> // INGENIERÍA EN SISTEMAS COMPUTACIONALES <br>
+            INSTITUTO TECNOLÓGICO DE PACHUCA | <span class="text-white">PHAETHON ARCHIVES</span>
+        </div>
     </footer>
 
     <script src="./assets/js/main_circulos.js"></script>

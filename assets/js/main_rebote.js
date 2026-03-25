@@ -1,7 +1,7 @@
 (() => {
     const canvas = document.getElementById("canvasC");
     const ctx = canvas.getContext("2d");
-    canvas.height = 300; canvas.width = 600;
+    canvas.height = 300; canvas.width = 300;
 
     class CircleC {
         constructor(x, y, radius, speed, text) {
@@ -13,13 +13,22 @@
         }
         draw(context) {
             context.beginPath();
-            context.strokeStyle = this.collisionTimer > 0 ? "red" : "blue";
-            context.fillStyle = this.collisionTimer > 0 ? "rgba(255, 100, 100, 0.5)" : "rgba(0,0,0,0)";
+            
+            // Colores del borde
+            context.strokeStyle = this.collisionTimer > 0 ? "#FF3366" : "#00E5FF";
+            
+            // Relleno de impacto (Rojo neón con 30% de opacidad)
+            context.fillStyle = this.collisionTimer > 0 ? "rgba(255, 51, 102, 0.3)" : "rgba(0,0,0,0)";
             context.lineWidth = 2;
             context.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2, false);
             context.fill(); context.stroke();
-            context.fillStyle = "black"; context.textAlign = "center"; context.textBaseline = "middle"; context.font = "20px Arial";
+            
+            // Volvemos a cambiar el fillStyle para pintar el texto
+            context.fillStyle = "#F2EBE1"; 
+            context.textAlign = "center"; context.textBaseline = "middle"; 
+            context.font = "bold 20px 'Space Mono', monospace";
             context.fillText(this.text, this.posX, this.posY);
+            
             context.closePath();
         }
         update(context) {

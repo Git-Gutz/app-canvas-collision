@@ -1,7 +1,7 @@
 (() => {
     const canvas = document.getElementById("canvasB");
     const ctx = canvas.getContext("2d");
-    canvas.height = 300; canvas.width = 600;
+    canvas.height = 300; canvas.width = 300;
 
     class CircleB {
         constructor(x, y, radius, speed, text) {
@@ -13,10 +13,15 @@
         }
         draw(context) {
             context.beginPath();
-            context.strokeStyle = this.isColliding ? "red" : "blue";
+            // Cambio de color al intersectar: Rojo Neón o Azul Cian
+            context.strokeStyle = this.isColliding ? "#FF3366" : "#00E5FF";
             context.textAlign = "center"; context.textBaseline = "middle";
-            context.font = "20px Arial"; context.fillStyle = "black";
+            context.font = "bold 20px 'Space Mono', monospace"; 
+            
+            // Color de la fuente
+            context.fillStyle = "#F2EBE1";
             context.fillText(this.text, this.posX, this.posY);
+            
             context.lineWidth = 2;
             context.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2, false);
             context.stroke(); context.closePath();
