@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Subsistema de evaluación de intersección espacial (Cinta B).
+ * Mide en tiempo real la superposición de primitivas circulares
+ * mutando su estado visual sin alterar la inercia vectorial.
+ */
 (() => {
     const canvas = document.getElementById("canvasB");
     const ctx = canvas.getContext("2d");
@@ -15,7 +20,7 @@
             this.speed = speed; this.text = text;
             this.dx = (Math.random() < 0.5 ? 1 : -1) * (Math.random() * speed + 1);
             this.dy = (Math.random() < 0.5 ? 1 : -1) * (Math.random() * speed + 1);
-            this.isColliding = false;
+            this.isColliding = false; // Flag booleano de estado de intersección
         }
         draw(context) {
             context.beginPath();
@@ -32,6 +37,7 @@
             context.fillStyle = glassGradient;
             context.fill(); 
 
+            // Evaluación ternaria del estado para alternar el trazo del Stroke
             context.strokeStyle = this.isColliding ? "#FF3366" : "#00E5FF";
             context.textAlign = "center"; context.textBaseline = "middle";
             context.font = "bold 20px 'Space Mono', monospace"; 
@@ -70,11 +76,14 @@
         }
     }
 
+    /**
+     * Calcula la magnitud de la distancia entre dos puntos (Distancia Euclidiana).
+     * @returns {number} Magnitud escalar del vector desplazamiento.
+     */
     function getDist(x1, y1, x2, y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    // --- Motor de Renderizado del Esquemático ---
     function drawSchematic(context) {
         context.strokeStyle = "rgba(0, 229, 255, 0.08)";
         context.lineWidth = 1;
@@ -129,13 +138,18 @@
         requestAnimationFrame(animate);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
-        drawSchematic(ctx); // Dibujamos la retícula
+        drawSchematic(ctx); 
 
+        // Reseteo de flags antes de iterar la evaluación por frame
         circles.forEach(c => c.isColliding = false);
+        
+        // Bucles anidados O(n^2) para evaluar intersecciones espaciales
         for (let i = 0; i < circles.length; i++) {
             for (let j = i + 1; j < circles.length; j++) {
+                // Validación matemática de superposición (distancia < sumatoria de radios)
                 if (getDist(circles[i].posX, circles[i].posY, circles[j].posX, circles[j].posY) < circles[i].radius + circles[j].radius) {
-                    circles[i].isColliding = true; circles[j].isColliding = true;
+                    circles[i].isColliding = true; 
+                    circles[j].isColliding = true;
                 }
             }
         }
