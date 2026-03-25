@@ -1,6 +1,6 @@
 /* =======================================================
    TEMA RANDOM PLAY LABS | PHAETHON (Industrial, Retro-Cozy)
-   Paleta de Colores e Iluminación inspirada en ZZZ
+   Paleta de ZZZ + Glassmorphism Industrial Pesado + Panel
    ======================================================= */
 
 :root {
@@ -17,31 +17,20 @@
 
 body.rp-theme {
     font-family: 'Outfit', sans-serif;
-
-    /* Color base por si falla la carga */
     background-color: var(--rp-bg-pizarra);
-
-    /* ✅ TEXTURA VISIBLE + OVERLAY SUAVE */
-    background-image:
-        radial-gradient(
-            circle at 20% 20%,
-            rgba(26,29,32,0.55) 0%,
-            rgba(10,10,10,0.75) 100%
-        ),
-        url('https://www.transparenttextures.com/patterns/brick-wall-dark.png');
-
-    /* Ajustes de fondo */
-    background-size: cover, auto;
-    background-repeat: no-repeat, repeat;
-    background-position: center, top left;
+    
+    /* Fondo de ladrillo que se verá a través del cristal oscuro */
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(26,29,32, 0.9) 0%, rgba(10,10,10, 1) 100%),
+        url('https://www.transparenttextures.com/patterns/brick-wall-dark.png'); 
+    
     background-attachment: fixed;
-
+    background-size: cover;
     color: var(--rp-text-main);
-
+    
+    /* Liberamos el scroll nativo */
     overflow-x: hidden;
     overflow-y: auto;
-
-    min-height: 100vh;
 }
 
 /* --- TIPOGRAFÍA Y TEXTOS --- */
@@ -56,11 +45,14 @@ body.rp-theme {
     font-size: 1.15rem;
 }
 
-/* --- BARRA DE NAVEGACIÓN (Pizarra con Grilla) --- */
+/* --- BARRA DE NAVEGACIÓN (Cristal Industrial) --- */
 .rp-navbar {
-    background-color: #0F1215;
+    background-color: rgba(15, 18, 21, 0.85); /* Semitransparente oscuro */
     border-bottom: 3px solid var(--rp-brick-red);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.6);
+    /* Efecto de cristal esmerilado pesado */
+    backdrop-filter: blur(10px) saturate(120%);
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
 }
 
 .rp-brand {
@@ -103,9 +95,9 @@ body.rp-theme {
     box-shadow: 0 0 20px rgba(255, 212, 0, 0.5);
 }
 
-/* --- TARJETAS (Pizarra Industrial en Pared de Ladrillo) --- */
+/* --- TARJETAS (Cajas de VHS / Consola en Cristal Pesado) --- */
 .rp-card {
-    background-color: #1F2226; 
+    background-color: rgba(31, 34, 38, 0.8); /* Pizarra semitransparente */
     border: 3px solid var(--rp-border);
     border-radius: 20px;
     box-shadow: 
@@ -113,19 +105,54 @@ body.rp-theme {
         inset -5px -5px 20px rgba(0,0,0,0.2);
     transition: transform 0.3s ease, border-color 0.3s ease;
     overflow: hidden;
-    background-image: radial-gradient(circle at 10% 10%, #292d32 0%, #1f2226 100%);
+    
+    /* Difuminado, saturado y oscurecido */
+    backdrop-filter: blur(15px) saturate(150%) brightness(90%); 
+    -webkit-backdrop-filter: blur(15px) saturate(150%) brightness(90%);
+    
+    /* Textura de grilla metalizada industrial */
+    background-image: 
+        radial-gradient(circle at 10% 10%, rgba(41,45,50,0.4) 0%, rgba(31,34,38,0) 100%),
+        url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM4Yzc4NjQiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTAgMGg0MHY0MEgwVjB6bTIwIDIwaDIwdjIwSDIWMjB6TTAgMjBoMjB2MjBIMFYyMHoyMCAwaDIwdjIwSDIwVjB6Ii8+PC9nPjwvZz48L3N2Zz4=');
 }
 
 .rp-card:hover {
-    transform: translateY(-10px) rotate(1deg); 
+    transform: translateY(-5px); 
     border-color: var(--rp-brick-red);
 }
 
 .rp-card-header {
-    background-color: rgba(163, 58, 54, 0.1); 
+    background-color: rgba(163, 58, 54, 0.15); 
     border-bottom: 2px solid var(--rp-border);
     color: var(--rp-text-main);
     letter-spacing: 1px;
+}
+
+/* --- CONTROLES DE LA CONSOLA --- */
+.rp-slider {
+    accent-color: var(--rp-yellow-warm);
+    cursor: crosshair;
+}
+
+.rp-slider::-webkit-slider-thumb {
+    background: var(--rp-brick-red);
+    border: 2px solid var(--rp-yellow-warm);
+    box-shadow: 0 0 10px rgba(255, 212, 0, 0.5);
+}
+
+.rp-switch {
+    width: 3em !important;
+    height: 1.5em !important;
+    background-color: #2A2826 !important;
+    border: 2px solid var(--rp-border) !important;
+    cursor: pointer;
+    box-shadow: inset 0 0 5px rgba(0,0,0,1);
+}
+
+.rp-switch:checked {
+    background-color: var(--rp-brick-red) !important;
+    border-color: var(--rp-yellow-warm) !important;
+    box-shadow: 0 0 15px rgba(255, 51, 102, 0.5) !important;
 }
 
 /* --- EL CANVAS (Monitor CRT Empotrado) --- */
@@ -163,17 +190,19 @@ body.rp-theme {
     box-shadow: 0 0 15px rgba(0,229,255,0.05);
 }
 
-/* --- TEXTOS TÉCNICOS --- */
+/* --- TEXTOS TÉCNICOS (Pantalla Empotrada) --- */
 .rp-tech-text {
     font-family: 'Space Mono', monospace;
     font-size: 0.85rem;
     color: var(--rp-text-main);
     line-height: 1.6;
-    background-color: #101214; 
+    background-color: rgba(16, 18, 20, 0.9); 
     padding: 1.4rem;
     border-radius: 10px;
     border: 2px solid var(--rp-border);
     border-left: 5px solid var(--rp-brick-red); 
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .rp-status {
@@ -185,7 +214,7 @@ body.rp-theme {
 
 /* --- FOOTER (Pizarra Industrial) --- */
 .rp-footer {
-    background-color: #0F1215;
+    background-color: rgba(15, 18, 21, 0.95);
     border-top: 3px solid var(--rp-border);
     width: 100%;
 }
